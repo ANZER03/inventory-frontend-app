@@ -1,0 +1,182 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Bills</h1>
+            <p class="mt-1 text-sm text-gray-500">Search and view bill details</p>
+        </div>
+
+        <!-- Search Box -->
+        <div class="bg-white shadow rounded-lg p-6 mb-8">
+            <div class="flex gap-4">
+                <div class="flex-grow">
+                    <label for="billId" class="sr-only">Bill ID</label>
+                    <input type="number" id="billId" [(ngModel)]="billId" placeholder="Enter Bill ID"
+                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3 border">
+                </div>
+                <button (click)="searchBill()"
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Search
+                </button>
+            </div>
+            @if (errorMessage()) {
+            <div class="mt-4 text-sm text-red-600">
+                {{ errorMessage() }}
+            </div>
+            }
+        </div>
+
+        <!-- Skeleton Loading -->
+        @if (isLoading()) {
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg animate-pulse">
+            <div class="px-4 py-5 sm:px-6 flex justify-between items-center bg-gray-50 border-b border-gray-200">
+                <div>
+                    <div class="h-6 bg-gray-200 rounded w-32 mb-2"></div>
+                    <div class="h-4 bg-gray-200 rounded w-48"></div>
+                </div>
+                <div class="text-right">
+                    <div class="h-4 bg-gray-200 rounded w-24"></div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <div class="h-5 bg-gray-200 rounded w-40 mb-4"></div>
+                <dl class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+                    <div class="sm:col-span-1">
+                        <div class="h-4 bg-gray-200 rounded w-16 mb-1"></div>
+                        <div class="h-4 bg-gray-200 rounded w-32"></div>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <div class="h-4 bg-gray-200 rounded w-16 mb-1"></div>
+                        <div class="h-4 bg-gray-200 rounded w-40"></div>
+                    </div>
+                </dl>
+            </div>
+
+            <div class="border-t border-gray-200">
+                <div class="px-4 py-5 sm:px-6">
+                    <div class="h-5 bg-gray-200 rounded w-32 mb-4"></div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    @for (i of [1,2,3,4,5]; track i) {
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <div class="h-4 bg-gray-200 rounded w-20"></div>
+                                    </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @for (item of [1,2,3]; track item) {
+                                <tr>
+                                    @for (col of [1,2,3,4,5]; track col) {
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                                    </td>
+                                    }
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+
+        <!-- Bill Details -->
+        @if (bill() && !isLoading()) {
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="px-4 py-5 sm:px-6 flex justify-between items-center bg-gray-50 border-b border-gray-200">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Bill #{{ bill()?.id }}</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                        Date: {{ bill()?.billingDate | date:'medium' }}
+                    </p>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-gray-500">Customer ID: {{ bill()?.customerId }}</div>
+                </div>
+            </div>
+
+            <!-- Customer Info -->
+            <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <h4 class="text-md font-medium text-gray-900 mb-3">Customer Details</h4>
+                <dl class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-gray-500">Name</dt>
+                        <dd class="mt-1 text-sm text-gray-900">{{ bill()?.customer?.name }}</dd>
+                    </div>
+                    <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-gray-500">Email</dt>
+                        <dd class="mt-1 text-sm text-gray-900">{{ bill()?.customer?.email }}</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <!-- Product Items -->
+            <div class="border-t border-gray-200">
+                <div class="px-4 py-5 sm:px-6">
+                    <h4 class="text-md font-medium text-gray-900 mb-4">Product Items</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Product ID</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Product Name</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Price</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Quantity</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @for (item of bill()?.productItems; track item.id) {
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        #{{ item.productId }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {{ item.product.name }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">
+                                        ${{ item.price | number:'1.2-2' }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">
+                                        {{ item.quantity }}
+                                    </td>
+                                    <td
+                                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-medium">
+                                        ${{ (item.price * item.quantity) | number:'1.2-2' }}
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                            <tfoot class="bg-gray-50">
+                                <tr>
+                                    <td colspan="4" class="px-6 py-3 text-right text-sm font-medium text-gray-900">Total
+                                        Amount:</td>
+                                    <td class="px-6 py-3 text-right text-sm font-bold text-indigo-600">
+                                        ${{ getTotal() | number:'1.2-2' }}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
