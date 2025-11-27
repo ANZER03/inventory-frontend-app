@@ -1,59 +1,134 @@
-# InventoryFrontendApp
+# Inventory Management System - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.14.
+A modern inventory management application built with Angular and Tailwind CSS. This application provides a clean and intuitive interface for managing products, customers, and bills.
 
-## Development server
+## 📸 Screenshots
 
-To start a local development server, run:
+### Products Management
+![Products](./screenshots/products.png)
+*Product listing and management interface*
 
+### Customers Management
+![Customers](./screenshots/customers.png)
+*Customer listing and management interface*
+
+### Bills
+![Bills](./screenshots/bills.png)
+*Bill search and display interface*
+
+## 🚀 Features
+
+- **Product Management**: Create, read, update, and delete products
+- **Customer Management**: Manage customer information with full CRUD operations
+- **Bill Management**: Search and view bills
+- **Responsive Design**: Modern UI built with Tailwind CSS
+- **Real-time Updates**: Uses Angular Signals for reactive state management
+- **Skeleton Loading**: Smooth loading states for better UX
+
+## 🛠️ Tech Stack
+
+- **Framework**: Angular 19.2
+- **Styling**: Tailwind CSS 3.4
+- **State Management**: Angular Signals
+- **HTTP Client**: Angular HttpClient
+- **Backend API**: Microservices architecture via Spring Cloud Gateway
+
+## 📋 Prerequisites
+
+- Node.js (v18 or higher)
+- npm (v9 or higher)
+- Backend API running at `http://localhost:8888/INVENTORY-SERVICE`
+
+## 🔧 Installation
+
+1. Clone the repository:
 ```bash
-ng serve
+git clone <repository-url>
+cd inventory-frontend-app
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+2. Install dependencies:
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3. Configure the API endpoint (if needed):
+   - Update the API URL in service files located in `src/app/services/`
+
+## 🏃 Running the Application
+
+### Development Server
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+Navigate to `http://localhost:4200/`. The application will automatically reload when you make changes.
 
-To build the project run:
+### Production Build
 
+1. Build the application:
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+2. Serve the production build:
 ```bash
-ng test
+npx http-server dist/inventory-frontend-app/browser -p 4200
 ```
 
-## Running end-to-end tests
+## 📁 Project Structure
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```
+src/
+├── app/
+│   ├── components/
+│   │   └── header/          # Header component
+│   ├── models/              # Data models
+│   │   ├── product.ts
+│   │   ├── customer.ts
+│   │   └── bill.ts
+│   ├── pages/               # Page components
+│   │   ├── products/
+│   │   ├── customers/
+│   │   └── bills/
+│   └── services/            # API services
+│       ├── product.service.ts
+│       ├── customer.service.ts
+│       └── bill.service.ts
+└── styles.css               # Global styles
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🎨 UI Components
 
-## Additional Resources
+- **Professional CRM-style Tables**: Clean, modern data tables with hover effects
+- **Modal Forms**: Intuitive forms for creating and editing records
+- **Skeleton Loaders**: Smooth loading states
+- **Responsive Navigation**: Clean header with navigation links
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🔌 API Integration
+
+The application connects to a microservices backend through Spring Cloud Gateway:
+
+- **Base URL**: `http://localhost:8888/INVENTORY-SERVICE`
+- **Endpoints**:
+  - Products: `/api/products`
+  - Customers: `/api/customers`
+  - Bills: `/api/bills`
+
+## 📝 Available Scripts
+
+- `npm start` - Start development server
+- `npm run build` - Build for production
+- `npm test` - Run unit tests
+- `npm run watch` - Build in watch mode
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+**Note**: Make sure the backend microservices are running before starting the frontend application.
