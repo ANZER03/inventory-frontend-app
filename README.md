@@ -106,29 +106,9 @@ src/
 - **Skeleton Loaders**: Smooth loading states
 - **Responsive Navigation**: Clean header with navigation links
 
-## 🔌 API Integration
-
-The application connects to a microservices backend through Spring Cloud Gateway:
-
-- **Base URL**: `http://localhost:8888/INVENTORY-SERVICE`
-- **Endpoints**:
-  - Products: `/api/products`
-  - Customers: `/api/customers`
-  - Bills: `/api/bills`
-
 ## 📝 Available Scripts
 
 - `npm start` - Start development server
 - `npm run build` - Build for production
 - `npm test` - Run unit tests
 - `npm run watch` - Build in watch mode
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-**Note**: Make sure the backend microservices are running before starting the frontend application.
